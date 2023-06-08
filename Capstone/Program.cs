@@ -1,5 +1,8 @@
 ﻿using Capstone.Classes;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 
 namespace Capstone
 {
@@ -7,8 +10,10 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
-            //Inventory VendingMachine = new Inventory();
-            //VendingMachine.ReadInventoryFile();
+            
+            
+            //DisplayItems VendingMachine = new DisplayItems();
+            //VendingMachine.CallCurrentInventory();
         }
     }
 }
