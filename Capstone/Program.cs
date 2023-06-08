@@ -7,8 +7,8 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
-            Inventory VendingMachine = new Inventory();
-            VendingMachine.ReadInventoryFile();
+            //Inventory VendingMachine = new Inventory();
+            //VendingMachine.ReadInventoryFile();
         }
     }
 }
