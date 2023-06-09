@@ -11,8 +11,8 @@ namespace Capstone.Classes
         {
             string inventoryFile = ".\\Data\\vendingmachine.csv";
 
-            Inventory CurrentStock = new Inventory();
-            List<object> ProductInventory = CurrentStock.CreateInventory(inventoryFile);
+            Inventory CurrentInventory = new Inventory();
+            List<object> ProductInventory = CurrentInventory.CreateInventory(inventoryFile);
 
             foreach (Product item in ProductInventory)
             {
