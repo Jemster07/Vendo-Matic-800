@@ -22,7 +22,7 @@ namespace Capstone.Classes
         // Methods
         public List<object> CreateInventory(string inventoryFile)
         {
-            List<object> ProductInventory = new List<object>();
+            List<object> Inventory = new List<object>();
 
             try
             {
@@ -37,22 +37,22 @@ namespace Capstone.Classes
                         if (product[3] == "Chip")
                         {
                             Chip Chip = new Chip(product[0], product[1], price, product[3]);
-                            ProductInventory.Add(Chip);
+                            Inventory.Add(Chip);
                         }
                         else if (product[3] == "Candy")
                         {
                             Candy Candy = new Candy(product[0], product[1], price, product[3]);
-                            ProductInventory.Add(Candy);
+                            Inventory.Add(Candy);
                         }
                         else if (product[3] == "Drink")
                         {
                             Drink Drink = new Drink(product[0], product[1], price, product[3]);
-                            ProductInventory.Add(Drink);
+                            Inventory.Add(Drink);
                         }
                         else //(product[3] == "Gum")
                         {
                             Gum Gum = new Gum(product[0], product[1], price, product[3]);
-                            ProductInventory.Add(Gum);
+                            Inventory.Add(Gum);
                         }
                     }
                 }
@@ -66,7 +66,7 @@ namespace Capstone.Classes
                 Console.WriteLine("Something went wrong while creating the inventory.");
             }
 
-            return ProductInventory;
+            return Inventory;
         }
     }
 }

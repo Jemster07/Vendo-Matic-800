@@ -12,6 +12,9 @@ namespace Capstone.Classes
             // Create log file
             // Display Menu
 
+            Stock VendingMachine = new Stock();
+            VendingMachine.CurrentStock();
+
         }
     }
 }
