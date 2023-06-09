@@ -70,8 +70,8 @@ namespace Capstone.Classes
                 }
                 else if (userInputLower == "Purchase" || userInputLower == "2" || userInputLower == "[2]")
                 {
-                    //PurchaseMenu purchaseMenu = new PurchaseMenu();
-                    //purchaseMenu.CallPurchaseMenu();
+                    PurchaseMenu purchaseMenu = new PurchaseMenu();
+                    purchaseMenu.CallPurchaseMenu();
                 }
                 else //Exit
                 {

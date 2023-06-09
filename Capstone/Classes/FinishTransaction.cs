@@ -6,12 +6,8 @@ namespace Capstone.Classes
 {
     public class FinishTransaction
     {
-     
-
         public decimal CallFinishTransaction(decimal balance)
         {
-           
-
             int quarters = 0;
             int dimes = 0;
             int nickels = 0;
@@ -53,7 +49,8 @@ namespace Capstone.Classes
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine("Thank you! Enjoy!");
-            
+            Console.WriteLine();
+
             return balance;
         }
     }
