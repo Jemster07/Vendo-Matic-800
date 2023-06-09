@@ -1,4 +1,5 @@
 ﻿using Capstone.Classes.Children;
+using Capstone.Classes.Parents;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,15 +15,16 @@ namespace Capstone.Classes
     public class Inventory
     {
         // Properties
-        public string InventoryFile { get; private set; }
+        public string InventoryFile { get; }
 
         // Constructors
         public Inventory() { }
 
         // Methods
-        public List<object> CreateInventory(string inventoryFile)
+        public Dictionary<string, Product> ReadInventory()
         {
-            List<object> ProductInventory = new List<object>();
+            string inventoryFile = ".\\Data\\vendingmachine.csv";
+            Dictionary<string, Product> Inventory = new Dictionary<string, Product>();
 
             try
             {
@@ -37,22 +39,22 @@ namespace Capstone.Classes
                         if (product[3] == "Chip")
                         {
                             Chip Chip = new Chip(product[0], product[1], price, product[3]);
-                            ProductInventory.Add(Chip);
+                            Inventory.Add(product[0], Chip);
                         }
                         else if (product[3] == "Candy")
                         {
                             Candy Candy = new Candy(product[0], product[1], price, product[3]);
-                            ProductInventory.Add(Candy);
+                            Inventory.Add(product[0], Candy);
                         }
                         else if (product[3] == "Drink")
                         {
                             Drink Drink = new Drink(product[0], product[1], price, product[3]);
-                            ProductInventory.Add(Drink);
+                            Inventory.Add(product[0], Drink);
                         }
                         else //(product[3] == "Gum")
                         {
                             Gum Gum = new Gum(product[0], product[1], price, product[3]);
-                            ProductInventory.Add(Gum);
+                            Inventory.Add(product[0], Gum);
                         }
                     }
                 }
@@ -66,7 +68,7 @@ namespace Capstone.Classes
                 Console.WriteLine("Something went wrong while creating the inventory.");
             }
 
-            return ProductInventory;
+            return Inventory;
         }
     }
 }
