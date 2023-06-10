@@ -7,10 +7,12 @@ namespace Capstone.Classes
     public class FinishTransaction
     {
         public decimal CallFinishTransaction(decimal balance)
-        {
+        {   
+            Loggin log = new Loggin();
             int quarters = 0;
             int dimes = 0;
             int nickels = 0;
+            log.GiveChangeLog(balance);
             while (balance > 0)
             {
                 if (balance >= .25M)
