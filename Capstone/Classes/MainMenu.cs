@@ -9,7 +9,7 @@ namespace Capstone.Classes
     {
         public void CallMainMenu()
         {
-            CurrentInventory currentInventory = new CurrentInventory();
+            Inventory currentInventory = new Inventory();
             Dictionary<string, Product> inventory = currentInventory.GenerateInventory();
             Dictionary<string, int> stock = currentInventory.GenerateStock();
 
