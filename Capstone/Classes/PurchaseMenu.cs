@@ -39,6 +39,12 @@ namespace Capstone.Classes
                     balance += userBalance.CallFeedMoney(balance);
                 }
 
+                SelectProduct selectProduct = new SelectProduct();
+                if (lowerInput == "2" || lowerInput == "(2)" || lowerInput == "select product")
+                {
+                    selectProduct.BuyItem(balance);
+                }
+
                 FinishTransaction remainingBalance = new FinishTransaction();
                 if (lowerInput == "3" || lowerInput == "(3)" || lowerInput == "finish transaction")
                 {

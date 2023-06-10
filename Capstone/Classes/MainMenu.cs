@@ -9,9 +9,9 @@ namespace Capstone.Classes
     {
         public void CallMainMenu()
         {
-            CurrentInventory VendingMachine = new CurrentInventory();
-            Dictionary<string, Product> inventory = VendingMachine.GenerateInventory();
-            Dictionary<string, int> stock = VendingMachine.GenerateStock();
+            CurrentInventory currentInventory = new CurrentInventory();
+            Dictionary<string, Product> inventory = currentInventory.GenerateInventory();
+            Dictionary<string, int> stock = currentInventory.GenerateStock();
 
             // Create log file            
 
@@ -20,6 +20,8 @@ namespace Capstone.Classes
             while (!endProgram)
             {
                 Console.WriteLine("Welcome to the Vendo-Matic 800!");
+                Console.WriteLine();
+                Console.WriteLine("--- Main Menu ---");
                 Console.WriteLine();
                 Console.WriteLine("Please make a selection:");
                 Console.WriteLine("[1] Display Vending Machine Items");
@@ -65,7 +67,7 @@ namespace Capstone.Classes
 
                 if (userInputLower == "display vending machine items" || userInputLower == "1" || userInputLower == "[1]")
                 {
-                    VendingMachine.PrintInventory();
+                    currentInventory.PrintInventory();
                     Console.WriteLine();
                 }
                 else if (userInputLower == "Purchase" || userInputLower == "2" || userInputLower == "[2]")

@@ -9,11 +9,8 @@ namespace Capstone.Classes
     {
         public decimal Balance { get; private set; }
 
-        public FeedMoney()
-        {
-            //Balance = balance;
-            //InsertedMoney = insertedMoney;
-        }
+        public FeedMoney() { }
+     
         public decimal CallFeedMoney(decimal balance)
         {
             Console.WriteLine();
@@ -64,12 +61,5 @@ namespace Capstone.Classes
             return balance;
         }
     }
-
-   
-
-
-
-
-
 }
 
