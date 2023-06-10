@@ -10,30 +10,18 @@ namespace Capstone.Classes
 {
     public class CurrentInventory
     {
-        // Properties
-        public string Inventory { get; }
-
-        // Constructors
-        public CurrentInventory() { }
-
-        // Methods
+        Inventory Inventory = new Inventory();
+        Dictionary<string, Product> currentInventory = new Dictionary<string, Product>();
+        Dictionary<string, int> StockQuantity = new Dictionary<string, int>();
 
         public Dictionary<string, Product> GenerateInventory()
         {
-            Inventory Inventory = new Inventory();
-            Dictionary<string, Product> CurrentInventory = Inventory.ReadInventory();
-
-            return CurrentInventory;
+            return currentInventory;
         }
 
         public Dictionary<string, int> GenerateStock()
         {
-            Inventory Inventory = new Inventory();
-            Dictionary<string, Product> CurrentInventory = Inventory.ReadInventory();
-
-            Dictionary<string, int> StockQuantity = new Dictionary<string, int>();
-
-            foreach (KeyValuePair<string, Product> item in CurrentInventory)
+            foreach (KeyValuePair<string, Product> item in currentInventory)
             {
                 StockQuantity.Add(item.Key, 5);
             }
@@ -43,10 +31,7 @@ namespace Capstone.Classes
 
         public void PrintInventory()
         {
-            Inventory Inventory = new Inventory();
-            Dictionary<string, Product> CurrentInventory = Inventory.ReadInventory();
-
-            foreach (Product item in CurrentInventory.Values)
+            foreach (Product item in currentInventory.Values)
             {
                 Console.WriteLine($"{item.Location} | {item.Name} | ${item.Price} | {item.Type}");
             }

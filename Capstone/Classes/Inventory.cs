@@ -14,13 +14,6 @@ namespace Capstone.Classes
 {
     public class Inventory
     {
-        // Properties
-        public string InventoryFile { get; }
-
-        // Constructors
-        public Inventory() { }
-
-        // Methods
         public Dictionary<string, Product> ReadInventory()
         {
             string inventoryFile = ".\\Data\\vendingmachine.csv";
