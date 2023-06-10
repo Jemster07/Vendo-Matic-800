@@ -9,9 +9,9 @@ namespace Capstone.Classes
     {
         public void CallMainMenu()
         {
-            Inventory currentInventory = new Inventory();
-            Dictionary<string, Product> inventory = currentInventory.GenerateInventory();
-            Dictionary<string, int> stock = currentInventory.GenerateStock();
+            //Inventory currentInventory = new Inventory();
+            //Dictionary<string, Product> inventory = currentInventory.GenerateInventory();
+            //Dictionary<string, int> stock = currentInventory.GenerateStock();
 
             // Create log file            
 
@@ -67,7 +67,7 @@ namespace Capstone.Classes
 
                 if (userInputLower == "display vending machine items" || userInputLower == "1" || userInputLower == "[1]")
                 {
-                    currentInventory.PrintInventory();
+                    //currentInventory.PrintInventory();
                     Console.WriteLine();
                 }
                 else if (userInputLower == "Purchase" || userInputLower == "2" || userInputLower == "[2]")

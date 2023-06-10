@@ -1,20 +1,21 @@
 ﻿using Capstone.Classes.Children;
 using Capstone.Classes.Parents;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Capstone.Classes
 {
-    public class Inventory
+    public class VendingMachine
     {
-        Dictionary<string, Product> ReadInventory = new Dictionary<string, Product>();
-        Dictionary<string, int> StockQuantity = new Dictionary<string, int>();
+        Dictionary<string, Product> InventoryItems = new Dictionary<string, Product>();
+        Dictionary<string, int> SetSlots = new Dictionary<string, int>();
 
-        public Dictionary<string, Product> GenerateInventory()
+        private string SlotQuantity { get; }
+        private decimal InsertedMoney { get; }
+
+        public VendingMachine()
         {
             string inventoryFile = ".\\Data\\vendingmachine.csv";
 
@@ -31,22 +32,22 @@ namespace Capstone.Classes
                         if (product[3] == "Chip")
                         {
                             Chip Chip = new Chip(product[1], price, product[3]);
-                            ReadInventory.Add(product[0], Chip);
+                            InventoryItems.Add(product[0], Chip);
                         }
                         else if (product[3] == "Candy")
                         {
                             Candy Candy = new Candy(product[1], price, product[3]);
-                            ReadInventory.Add(product[0], Candy);
+                            InventoryItems.Add(product[0], Candy);
                         }
                         else if (product[3] == "Drink")
                         {
                             Drink Drink = new Drink(product[1], price, product[3]);
-                            ReadInventory.Add(product[0], Drink);
+                            InventoryItems.Add(product[0], Drink);
                         }
                         else //(product[3] == "Gum")
                         {
                             Gum Gum = new Gum(product[1], price, product[3]);
-                            ReadInventory.Add(product[0], Gum);
+                            InventoryItems.Add(product[0], Gum);
                         }
                     }
                 }
@@ -59,25 +60,14 @@ namespace Capstone.Classes
             {
                 Console.WriteLine("Something went wrong while creating the inventory.");
             }
-
-            return ReadInventory;
         }
 
-        public Dictionary<string, int> GenerateStock()
-        {
-            foreach (KeyValuePair<string, Product> item in ReadInventory)
-            {
-                StockQuantity.Add(item.Key, 5);
-            }
-
-            return StockQuantity;
-        }
-
+        // Methods
         public void PrintInventory()
         {
-            foreach (Product item in ReadInventory.Values)
+            foreach (Product item in InventoryItems.Values)
             {
-                Console.WriteLine($"{item.Location} | {item.Name} | ${item.Price} | {item.Type}");
+                Console.WriteLine($"{item.Name} | ${item.Price} | {item.Type}");
             }
         }
     }

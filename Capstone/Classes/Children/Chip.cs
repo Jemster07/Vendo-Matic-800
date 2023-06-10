@@ -7,7 +7,7 @@ namespace Capstone.Classes.Children
 {
     public class Chip : Product
     {
-        public Chip(string location, string name, decimal price, string type, string message = "Munch Munch, Yum!")
-            : base(location, name, price, type, message) { }
+        public Chip(string name, decimal price, string type, string message = "Munch Munch, Yum!")
+            : base(name, price, type, message) { }
     }
 }
