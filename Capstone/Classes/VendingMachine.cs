@@ -266,19 +266,19 @@ namespace Capstone.Classes
                 if (quarters > 0)
                 {
                     Console.WriteLine("Ca-CHING");
-                    Console.WriteLine($"{quarters} Quarters");
+                    Console.WriteLine($"{quarters} Quarter(s)");
                     Console.WriteLine();
                 }
                 if (dimes > 0)
                 {
                     Console.WriteLine("Pa-PING");
-                    Console.WriteLine($"{dimes} Dimes");
+                    Console.WriteLine($"{dimes} Dime(s)");
                     Console.WriteLine();
                 }
                 if (nickels > 0)
                 {
                     Console.WriteLine("Plunk-Plunk");
-                    Console.WriteLine($"{nickels} Nickels");
+                    Console.WriteLine($"{nickels} Nickel(s)");
                     Console.WriteLine();
                 }
 
