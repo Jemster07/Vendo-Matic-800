@@ -21,13 +21,14 @@ namespace Capstone
             }
         }
 
-        public void SelectProductLog()
+        public void SelectProductLog(string slot, Product product, decimal balance)
         {
             using (StreamWriter sw = new StreamWriter(filePath, true))
             {
-                sw.WriteLine($"{DateAndTime.Now} //product and slot //product price //new balance");
+                sw.WriteLine($"{DateAndTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt")} {product.Name} {slot} {product.Price} {balance}");
             }
         }
+
         public void GiveChangeLog(decimal balance)
         {
             using (StreamWriter sw = new StreamWriter(filePath, true))

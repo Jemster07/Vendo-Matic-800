@@ -9,7 +9,10 @@ namespace Capstone.Classes
 {
     public class VendingMachine
     {
+        Logging log = new Logging();
         Dictionary<string, VendingMachineSlot> InventoryItem = new Dictionary<string, VendingMachineSlot>();
+        
+        // Property
         public decimal Balance { get; private set; }
 
         // Constructor
@@ -81,14 +84,14 @@ namespace Capstone.Classes
 
             Console.WriteLine();
         }
+        
         public decimal FeedMoney(decimal balance)
         {
-            bool forward = true;
-            while (forward)
+            bool endMenu = false;
+            while (!endMenu)
             {
                 try
                 {
-                    Logging log = new Logging();
                     Console.WriteLine();
                     Console.Write("Please Insert Money ($1,$5,$10,$20): ");
                     string insertedMoney = Console.ReadLine();
@@ -103,8 +106,8 @@ namespace Capstone.Classes
                         balance += moneyEntered;
                         Console.WriteLine($"Balance: {balance}");
                         log.FeedMoneyLog(insertedMoney, balance);
-                        bool moreMoney = true;
-                        while (moreMoney)
+                        bool addMoreMoney = true;
+                        while (addMoreMoney)
                         {
                             Console.Write("Would you like to add more money? (Y/N): ");
                             string keepGoing = Console.ReadLine().ToLower();
@@ -116,14 +119,14 @@ namespace Capstone.Classes
 
                             if (keepGoing == "y")
                             {
-                                forward = true;
-                                moreMoney = false;
+                                endMenu = true;
+                                addMoreMoney = false;
                             }
 
                             if (keepGoing == "n")
                             {
-                                moreMoney = false;
-                                forward = false;
+                                addMoreMoney = false;
+                                endMenu = false;
                                 return balance;
                             }
                         }
@@ -137,6 +140,7 @@ namespace Capstone.Classes
 
             return balance;
         }
+        
         public decimal SelectProduct(decimal balance)
         {
             Console.WriteLine();
@@ -174,12 +178,13 @@ namespace Capstone.Classes
                     InventoryItem[userInputUpper].DecrementQuantity();
                     balance -= InventoryItem[userInputUpper].Product.Price;
 
-                    Console.WriteLine($"{InventoryItem[userInputUpper].Product.Name}, " +
-                        $"${InventoryItem[userInputUpper].Product.Price}, ${balance}, " +
+                    Console.WriteLine();
+                    Console.WriteLine($"{InventoryItem[userInputUpper].Product.Name} | " +
+                        $"${InventoryItem[userInputUpper].Product.Price} | ${balance} | " +
                         $"{InventoryItem[userInputUpper].Product.Message}");
+                    Console.WriteLine();
 
-                    // TODO: Instantiate a new Logging object in VendingMachine so it can stay its own class
-                    // call the method to log the transaction
+                    log.SelectProductLog(userInputUpper, InventoryItem[userInputUpper].Product, balance);
 
                     return balance;
                 }
@@ -194,13 +199,14 @@ namespace Capstone.Classes
                 }
             }
         }
+        
         public decimal FinishTransaction(decimal balance)
         {
-            Logging log = new Logging();
             int quarters = 0;
             int dimes = 0;
             int nickels = 0;
             log.GiveChangeLog(balance);
+            
             while (balance > 0)
             {
                 if (balance >= .25M)
@@ -225,18 +231,21 @@ namespace Capstone.Classes
             {
                 Console.WriteLine("Ca-CHING");
                 Console.WriteLine($"{quarters} Quarters");
+                Console.WriteLine();
             }
             if (dimes > 0)
             {
-                Console.WriteLine("Pa-PINGping");
+                Console.WriteLine("Pa-PING");
                 Console.WriteLine($"{dimes} Dimes");
+                Console.WriteLine();
             }
             if (nickels > 0)
             {
                 Console.WriteLine("plunk-plunk");
                 Console.WriteLine($"{nickels} Nickels");
+                Console.WriteLine();
             }
-            Console.WriteLine();
+            
             Console.WriteLine();
             Console.WriteLine("Thank you! Enjoy!");
             Console.WriteLine();

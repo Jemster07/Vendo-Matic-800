@@ -12,7 +12,6 @@ namespace Capstone.Classes
             bool endProgram = false;
             decimal balance = 0.00M;
             VendingMachine myVendingMachine = new VendingMachine(balance);
-            myVendingMachine.SelectProduct(balance);
 
             while (!endProgram)
             {
