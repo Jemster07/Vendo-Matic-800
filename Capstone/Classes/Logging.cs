@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Capstone
 {
-    public class Loggin
+    public class Logging
     {
         string filePath = ".\\Data\\log.txt";
 
@@ -34,8 +34,6 @@ namespace Capstone
             {
                 sw.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt")} GIVE CHANGE ${balance} $0");
             }
-        }
-
-            
+        }    
     }
 }

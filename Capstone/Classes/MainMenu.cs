@@ -9,13 +9,10 @@ namespace Capstone.Classes
     {
         public void CallMainMenu()
         {
-            //Inventory currentInventory = new Inventory();
-            //Dictionary<string, Product> inventory = currentInventory.GenerateInventory();
-            //Dictionary<string, int> stock = currentInventory.GenerateStock();
-
-            // Create log file            
-
             bool endProgram = false;
+            decimal balance = 0.00M;
+            VendingMachine myVendingMachine = new VendingMachine(balance);
+            myVendingMachine.SelectProduct(balance);
 
             while (!endProgram)
             {

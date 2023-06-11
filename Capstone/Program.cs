@@ -10,10 +10,8 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
-            VendingMachine myVendingMachine = new VendingMachine();
-            
-            //MainMenu VendingMachine = new MainMenu();
-            //VendingMachine.CallMainMenu();
+            MainMenu RunProgram = new MainMenu();
+            RunProgram.CallMainMenu();
         }
     }
 }

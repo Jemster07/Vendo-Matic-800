@@ -14,77 +14,61 @@ namespace Capstone.Classes
 
         public decimal CallFeedMoney(decimal balance)
         {
+
+            bool forward = true;
+            while (forward)
             {
-                bool forward = true;
-                while (forward)
+                try
                 {
-                    try
+                    Logging log = new Logging();
+                    Console.WriteLine();
+                    Console.Write("Please Insert Money ($1,$5,$10,$20): ");
+                    string insertedMoney = Console.ReadLine();
+                    decimal moneyEntered = decimal.Parse(insertedMoney);
+
+                    if (moneyEntered != 1.00M && moneyEntered != 5.00M && moneyEntered != 10.00M && moneyEntered != 20.00M)
                     {
-                        Loggin log = new Loggin();
-                        Console.WriteLine();
-                        Console.Write("Please Insert Money ($1,$5,$10,$20): ");
-                        string insertedMoney = Console.ReadLine();
-                        decimal moneyEntered = decimal.Parse(insertedMoney);
-
-
-
-                        if (moneyEntered != 1.00M && moneyEntered != 5.00M && moneyEntered != 10.00M && moneyEntered != 20.00M)
+                        Console.WriteLine("YOU EEEDIOT!!! Try Again");
+                    }
+                    if (moneyEntered == 1.00M || moneyEntered == 5.00M || moneyEntered == 10.00M || moneyEntered == 20.00M)
+                    {
+                        balance += moneyEntered;
+                        Console.WriteLine($"Balance: {balance}");
+                        log.FeedMoneyLog(insertedMoney, balance);
+                        bool moreMoney = true;
+                        while (moreMoney)
                         {
-                            Console.WriteLine("YOU EEEDIOT!!! Try Again");
-                        }
-                        if (moneyEntered == 1.00M || moneyEntered == 5.00M || moneyEntered == 10.00M || moneyEntered == 20.00M)
-                        {
-                            balance += moneyEntered;
-                            Console.WriteLine($"Balance: {balance}");
-                            log.FeedMoneyLog(insertedMoney, balance);
-                            bool moreMoney = true;
-                            while (moreMoney)
+                            Console.Write("Would you like to add more money? (Y/N): ");
+                            string keepGoing = Console.ReadLine().ToLower();
+                            if (keepGoing != "y" && keepGoing != "n")
                             {
-                                Console.Write("Would you like to add more money? (Y/N): ");
-                                string keepGoing = Console.ReadLine().ToLower();
-                                if (keepGoing != "y" && keepGoing != "n")
-                                {
-                                    Console.WriteLine();
-                                    Console.WriteLine("YOU EEEDIOT!!! Try Again");
-                                }
+                                Console.WriteLine();
+                                Console.WriteLine("YOU EEEDIOT!!! Try Again");
+                            }
 
-                                if (keepGoing == "y")
-                                {
-                                    forward = true;
-                                    moreMoney = false;
-                                }
+                            if (keepGoing == "y")
+                            {
+                                forward = true;
+                                moreMoney = false;
+                            }
 
-                                if (keepGoing == "n")
-                                {
-                                    moreMoney = false;
-                                    forward = false;
-                                    return balance;
-                                }
+                            if (keepGoing == "n")
+                            {
+                                moreMoney = false;
+                                forward = false;
+                                return balance;
                             }
                         }
-                    }  catch
-                    {
-                        Console.WriteLine("WHOOPSIEE! Try again");
                     }
-
-
                 }
-
+                catch
+                {
+                    Console.WriteLine("WHOOPSIEE! Try again");
+                }
             }
-            return balance;
 
+            return balance;
         }
     }
-                    
-                 
-
-
-                    
-
-                   
-
-
-                
-    
 }
 

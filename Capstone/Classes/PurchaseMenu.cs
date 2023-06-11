@@ -9,7 +9,10 @@ namespace Capstone.Classes
     {
         public void CallPurchaseMenu()
         {
+            // TODO: Remember to remove this balance declaration!!
+            // TODO: Move this loop to the MainMenu class, should involve nested loops
             decimal balance = 0.00M;
+            
             bool keepRunning = true;
 
             while (keepRunning == true)
@@ -39,10 +42,10 @@ namespace Capstone.Classes
                     balance += userBalance.CallFeedMoney(balance);
                 }
 
-                SelectProduct selectProduct = new SelectProduct();
+                //SelectProduct selectProduct = new SelectProduct();
                 if (lowerInput == "2" || lowerInput == "(2)" || lowerInput == "select product")
                 {
-                    selectProduct.BuyItem(balance);
+                    //selectProduct.BuyItem(balance);
                 }
 
                 FinishTransaction remainingBalance = new FinishTransaction();

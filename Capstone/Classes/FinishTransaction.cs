@@ -8,7 +8,7 @@ namespace Capstone.Classes
     {
         public decimal CallFinishTransaction(decimal balance)
         {   
-            Loggin log = new Loggin();
+            Logging log = new Logging();
             int quarters = 0;
             int dimes = 0;
             int nickels = 0;
