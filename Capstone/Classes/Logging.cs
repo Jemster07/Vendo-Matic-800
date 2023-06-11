@@ -12,6 +12,13 @@ namespace Capstone
     public class Logging
     {
         string filePath = ".\\Data\\log.txt";
+        
+        // TODO: Remove constructor if the log should NOT reset upon exit
+        // Constructor
+        public Logging()
+        {
+            using StreamWriter sw = new StreamWriter(filePath, false) { };
+        }
 
         public void FeedMoneyLog(string insertedMoney, decimal balance)
         {

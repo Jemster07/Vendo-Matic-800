@@ -85,7 +85,7 @@ namespace Capstone.Classes
             {
                 Console.WriteLine($"{slot.Key} | {slot.Value.Product.Name} | ${slot.Value.Product.Price} | {slot.Value.Product.Type}");
             }
-            
+
             Console.WriteLine();
         }
 
@@ -100,7 +100,8 @@ namespace Capstone.Classes
                 Console.WriteLine();
                 Console.WriteLine($"Current Balance: ${balance}");
                 Console.WriteLine();
-                Console.Write("Please Insert Money ($1,$5,$10,$20): ");
+                Console.Write("Please Insert Money [$1,$5,$10,$20]: ");
+
                 string userInput = Console.ReadLine();
                 decimal insertedMoney = decimal.Parse(userInput);
 
@@ -113,7 +114,8 @@ namespace Capstone.Classes
                     Console.WriteLine();
                     Console.WriteLine("Invalid entry, please try again.");
                     Console.WriteLine();
-                    Console.Write("Please Insert Money ($1,$5,$10,$20): ");
+                    Console.Write("Please Insert Money [$1,$5,$10,$20]: ");
+
                     userInput = Console.ReadLine();
                     insertedMoney = decimal.Parse(userInput);
 
@@ -125,25 +127,31 @@ namespace Capstone.Classes
                 Console.WriteLine();
                 Console.WriteLine($"Current Balance: ${balance}");
                 Console.WriteLine();
+
                 log.FeedMoneyLog(userInput, balance);
-                
+
                 bool addMoreMoney = false;
 
                 while (!addMoreMoney)
                 {
-                    Console.Write("Would you like to add more money? (Y/N): ");
+                    Console.Write("Would you like to add more money? [Y/N]: ");
                     userInput = Console.ReadLine().ToLower();
 
-                    while (userInput != "y" && userInput != "n")
+                    while (!userInput.StartsWith("y") && !userInput.StartsWith("n"))
                     {
+                        Console.Clear();
+                        Console.WriteLine("--- Feed Money ---");
+                        Console.WriteLine();
+                        Console.WriteLine($"Current Balance: ${balance}");
                         Console.WriteLine();
                         Console.WriteLine("Invalid selection, please try again.");
                         Console.WriteLine();
-                        Console.Write("Would you like to add more money? (Y/N): ");
+                        Console.Write("Would you like to add more money? [Y/N]: ");
+
                         userInput = Console.ReadLine().ToLower();
                     }
 
-                    if (userInput == "n")
+                    if (userInput.StartsWith("n"))
                     {
                         return balance;
                     }
@@ -160,6 +168,7 @@ namespace Capstone.Classes
         public decimal SelectProduct(decimal balance)
         {
             PrintInventory();
+            Console.WriteLine($"Current Balance: ${balance}");
             Console.WriteLine();
             Console.Write("Select your product: ");
             string userInput = Console.ReadLine();
@@ -169,19 +178,20 @@ namespace Capstone.Classes
             {
                 Console.WriteLine();
                 PrintInventory();
-                Console.WriteLine();
+                Console.WriteLine($"Current Balance: ${balance}");
                 Console.WriteLine("INVALID INPUT");
-                Console.WriteLine();
-                Console.Write("Select your product: ");
+                Console.Write("Please select again: ");
                 userInput = Console.ReadLine();
                 userInputUpper = userInput.ToUpper();
             }
 
             if (InventoryItem[userInputUpper].Product.Price > balance)
             {
+                Console.Clear();
                 Console.WriteLine();
+                PrintInventory();
+                Console.WriteLine($"Current Balance: ${balance}");
                 Console.WriteLine("INSUFFICIENT FUNDS");
-                Console.WriteLine();
                 Console.Write("Press any key to return to the Purchase Menu.");
                 Console.ReadKey(true);
                 return balance;
@@ -200,6 +210,9 @@ namespace Capstone.Classes
                     Console.WriteLine();
 
                     log.SelectProductLog(userInputUpper, InventoryItem[userInputUpper].Product, balance);
+
+                    Console.Write("Press any key to return to the Purchase Menu.");
+                    Console.ReadKey(true);
 
                     return balance;
                 }
@@ -220,6 +233,7 @@ namespace Capstone.Classes
             int quarters = 0;
             int dimes = 0;
             int nickels = 0;
+
             log.GiveChangeLog(balance);
 
             while (balance > 0)
@@ -241,31 +255,54 @@ namespace Capstone.Classes
                 }
             }
 
-            Console.WriteLine("Here is your change!");
-            if (quarters > 0)
+            if (quarters >= 1 || dimes >= 1 || nickels >= 1)
             {
-                Console.WriteLine("Ca-CHING");
-                Console.WriteLine($"{quarters} Quarters");
+                Console.Clear();
+                Console.WriteLine("--- Finish Transaction ---");
                 Console.WriteLine();
-            }
-            if (dimes > 0)
-            {
-                Console.WriteLine("Pa-PING");
-                Console.WriteLine($"{dimes} Dimes");
+                Console.WriteLine("Here is your change!");
                 Console.WriteLine();
-            }
-            if (nickels > 0)
-            {
-                Console.WriteLine("plunk-plunk");
-                Console.WriteLine($"{nickels} Nickels");
-                Console.WriteLine();
-            }
 
-            Console.WriteLine();
-            Console.WriteLine("Thank you! Enjoy!");
-            Console.WriteLine();
+                if (quarters > 0)
+                {
+                    Console.WriteLine("Ca-CHING");
+                    Console.WriteLine($"{quarters} Quarters");
+                    Console.WriteLine();
+                }
+                if (dimes > 0)
+                {
+                    Console.WriteLine("Pa-PING");
+                    Console.WriteLine($"{dimes} Dimes");
+                    Console.WriteLine();
+                }
+                if (nickels > 0)
+                {
+                    Console.WriteLine("Plunk-Plunk");
+                    Console.WriteLine($"{nickels} Nickels");
+                    Console.WriteLine();
+                }
 
-            return balance;
+                Console.WriteLine("Thank you! Enjoy!");
+                Console.WriteLine();
+                Console.Write("Press any key to return to the Main Menu.");
+                Console.ReadKey(true);
+                Console.WriteLine();
+
+                return balance;
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("--- Finish Transaction ---");
+                Console.WriteLine();
+                Console.WriteLine("No change to dispense.");
+                Console.WriteLine();
+                Console.Write("Press any key to return to the Main Menu.");
+                Console.ReadKey(true);
+                Console.WriteLine();
+
+                return balance;
+            }
         }
     }
 }

@@ -124,7 +124,6 @@ namespace Capstone.Classes
                         Console.WriteLine();
                         Console.Write("Please select again: ");
 
-
                         input = Console.ReadLine();
                         lowerInput = input.ToLower();
                     }
@@ -140,7 +139,6 @@ namespace Capstone.Classes
                     else //Finish Transaction
                     {
                         balance = instanceVendingMachine.FinishTransaction(balance);
-                        //balance = 0.00M;
                         loopPurchaseMenu = false;
                     }
                 }
