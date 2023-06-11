@@ -10,8 +10,8 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
-            MainMenu RunProgram = new MainMenu();
-            RunProgram.CallMainMenu();
+            UI RunProgram = new UI();
+            RunProgram.CallUI();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Capstone.Classes
     {
         Logging log = new Logging();
         Dictionary<string, VendingMachineSlot> InventoryItem = new Dictionary<string, VendingMachineSlot>();
-        
+
         // Property
         public decimal Balance { get; private set; }
 
@@ -77,73 +77,88 @@ namespace Capstone.Classes
         // Methods
         public void PrintInventory()
         {
+            Console.Clear();
+            Console.WriteLine("--- Vending Machine Items ---");
+            Console.WriteLine();
+
             foreach (KeyValuePair<string, VendingMachineSlot> slot in InventoryItem)
             {
                 Console.WriteLine($"{slot.Key} | {slot.Value.Product.Name} | ${slot.Value.Product.Price} | {slot.Value.Product.Type}");
             }
-
+            
             Console.WriteLine();
         }
-        
+
         public decimal FeedMoney(decimal balance)
         {
             bool endMenu = false;
+
             while (!endMenu)
             {
-                try
+                Console.Clear();
+                Console.WriteLine("--- Feed Money ---");
+                Console.WriteLine();
+                Console.WriteLine($"Current Balance: ${balance}");
+                Console.WriteLine();
+                Console.Write("Please Insert Money ($1,$5,$10,$20): ");
+                string userInput = Console.ReadLine();
+                decimal insertedMoney = decimal.Parse(userInput);
+
+                while (insertedMoney != 1.00M && insertedMoney != 5.00M && insertedMoney != 10.00M && insertedMoney != 20.00M)
                 {
+                    Console.Clear();
+                    Console.WriteLine("--- Feed Money ---");
+                    Console.WriteLine();
+                    Console.WriteLine($"Current Balance: ${balance}");
+                    Console.WriteLine();
+                    Console.WriteLine("Invalid entry, please try again.");
                     Console.WriteLine();
                     Console.Write("Please Insert Money ($1,$5,$10,$20): ");
-                    string insertedMoney = Console.ReadLine();
-                    decimal moneyEntered = decimal.Parse(insertedMoney);
+                    userInput = Console.ReadLine();
+                    insertedMoney = decimal.Parse(userInput);
 
-                    if (moneyEntered != 1.00M && moneyEntered != 5.00M && moneyEntered != 10.00M && moneyEntered != 20.00M)
-                    {
-                        Console.WriteLine("YOU EEEDIOT!!! Try Again");
-                    }
-                    if (moneyEntered == 1.00M || moneyEntered == 5.00M || moneyEntered == 10.00M || moneyEntered == 20.00M)
-                    {
-                        balance += moneyEntered;
-                        Console.WriteLine($"Balance: {balance}");
-                        log.FeedMoneyLog(insertedMoney, balance);
-                        bool addMoreMoney = true;
-                        while (addMoreMoney)
-                        {
-                            Console.Write("Would you like to add more money? (Y/N): ");
-                            string keepGoing = Console.ReadLine().ToLower();
-                            if (keepGoing != "y" && keepGoing != "n")
-                            {
-                                Console.WriteLine();
-                                Console.WriteLine("YOU EEEDIOT!!! Try Again");
-                            }
-
-                            if (keepGoing == "y")
-                            {
-                                endMenu = true;
-                                addMoreMoney = false;
-                            }
-
-                            if (keepGoing == "n")
-                            {
-                                addMoreMoney = false;
-                                endMenu = false;
-                                return balance;
-                            }
-                        }
-                    }
                 }
-                catch
+
+                balance += insertedMoney;
+                Console.Clear();
+                Console.WriteLine("--- Feed Money ---");
+                Console.WriteLine();
+                Console.WriteLine($"Current Balance: ${balance}");
+                Console.WriteLine();
+                log.FeedMoneyLog(userInput, balance);
+                
+                bool addMoreMoney = false;
+
+                while (!addMoreMoney)
                 {
-                    Console.WriteLine("WHOOPSIEE! Try again");
+                    Console.Write("Would you like to add more money? (Y/N): ");
+                    userInput = Console.ReadLine().ToLower();
+
+                    while (userInput != "y" && userInput != "n")
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid selection, please try again.");
+                        Console.WriteLine();
+                        Console.Write("Would you like to add more money? (Y/N): ");
+                        userInput = Console.ReadLine().ToLower();
+                    }
+
+                    if (userInput == "n")
+                    {
+                        return balance;
+                    }
+                    else
+                    {
+                        addMoreMoney = true;
+                    }
                 }
             }
 
             return balance;
         }
-        
+
         public decimal SelectProduct(decimal balance)
         {
-            Console.WriteLine();
             PrintInventory();
             Console.WriteLine();
             Console.Write("Select your product: ");
@@ -199,14 +214,14 @@ namespace Capstone.Classes
                 }
             }
         }
-        
+
         public decimal FinishTransaction(decimal balance)
         {
             int quarters = 0;
             int dimes = 0;
             int nickels = 0;
             log.GiveChangeLog(balance);
-            
+
             while (balance > 0)
             {
                 if (balance >= .25M)
@@ -245,7 +260,7 @@ namespace Capstone.Classes
                 Console.WriteLine($"{nickels} Nickels");
                 Console.WriteLine();
             }
-            
+
             Console.WriteLine();
             Console.WriteLine("Thank you! Enjoy!");
             Console.WriteLine();

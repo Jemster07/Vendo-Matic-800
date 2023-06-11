@@ -17,7 +17,7 @@ namespace Capstone
         {
             using (StreamWriter sw = new StreamWriter(filePath, true))
             {
-                sw.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt")} FEED MONEY ${insertedMoney} ${balance}");
+                sw.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt")} FEED MONEY ${insertedMoney}.00 ${balance}");
             }
         }
 
@@ -33,7 +33,7 @@ namespace Capstone
         {
             using (StreamWriter sw = new StreamWriter(filePath, true))
             {
-                sw.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt")} GIVE CHANGE ${balance} $0");
+                sw.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt")} GIVE CHANGE ${balance} $0.00");
             }
         }    
     }
