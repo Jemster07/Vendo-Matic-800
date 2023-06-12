@@ -91,77 +91,85 @@ namespace Capstone.Classes
 
         public decimal FeedMoney(decimal balance)
         {
-            // TODO: Handle non-listed characters in "Please Insert Money" line
-
-            bool endMenu = false;
-
-            while (!endMenu)
+            try
             {
-                Console.Clear();
-                Console.WriteLine("--- Feed Money ---");
-                Console.WriteLine();
-                Console.WriteLine($"Current Balance: ${balance}");
-                Console.WriteLine();
-                Console.Write("Please Insert Money [$1,$5,$10,$20]: ");
+                bool endMenu = false;
 
-                string userInput = Console.ReadLine();
-                decimal insertedMoney = decimal.Parse(userInput);
-
-                while (insertedMoney != 1.00M && insertedMoney != 5.00M && insertedMoney != 10.00M && insertedMoney != 20.00M)
+                while (!endMenu)
                 {
                     Console.Clear();
                     Console.WriteLine("--- Feed Money ---");
                     Console.WriteLine();
                     Console.WriteLine($"Current Balance: ${balance}");
                     Console.WriteLine();
-                    Console.WriteLine("Invalid entry, please try again.");
-                    Console.WriteLine();
                     Console.Write("Please Insert Money [$1,$5,$10,$20]: ");
 
-                    userInput = Console.ReadLine();
-                    insertedMoney = decimal.Parse(userInput);
+                    string userInput = Console.ReadLine();
+                    decimal insertedMoney = decimal.Parse(userInput);
 
-                }
-
-                balance += insertedMoney;
-                Console.Clear();
-                Console.WriteLine("--- Feed Money ---");
-                Console.WriteLine();
-                Console.WriteLine($"Current Balance: ${balance}");
-                Console.WriteLine();
-
-                log.FeedMoneyLog(userInput, balance);
-
-                bool addMoreMoney = false;
-
-                while (!addMoreMoney)
-                {
-                    Console.Write("Would you like to add more money? [Y/N]: ");
-                    userInput = Console.ReadLine().ToLower();
-
-                    while (!userInput.StartsWith("y") && !userInput.StartsWith("n"))
+                    while (insertedMoney != 1.00M && insertedMoney != 5.00M &&
+                        insertedMoney != 10.00M && insertedMoney != 20.00M)
                     {
                         Console.Clear();
                         Console.WriteLine("--- Feed Money ---");
                         Console.WriteLine();
                         Console.WriteLine($"Current Balance: ${balance}");
                         Console.WriteLine();
-                        Console.WriteLine("Invalid selection, please try again.");
+                        Console.WriteLine("Invalid entry, please try again.");
                         Console.WriteLine();
+                        Console.Write("Please Insert Money [$1,$5,$10,$20]: ");
+
+                        userInput = Console.ReadLine();
+                        insertedMoney = decimal.Parse(userInput);
+                    }
+
+                    balance += insertedMoney;
+                    Console.Clear();
+                    Console.WriteLine("--- Feed Money ---");
+                    Console.WriteLine();
+                    Console.WriteLine($"Current Balance: ${balance}");
+                    Console.WriteLine();
+
+                    log.FeedMoneyLog(userInput, balance);
+
+                    bool addMoreMoney = false;
+
+                    while (!addMoreMoney)
+                    {
                         Console.Write("Would you like to add more money? [Y/N]: ");
-
                         userInput = Console.ReadLine().ToLower();
-                    }
 
-                    if (userInput.StartsWith("n"))
-                    {
-                        return balance;
-                    }
-                    else
-                    {
-                        addMoreMoney = true;
+                        while (!userInput.StartsWith("y") && !userInput.StartsWith("n"))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("--- Feed Money ---");
+                            Console.WriteLine();
+                            Console.WriteLine($"Current Balance: ${balance}");
+                            Console.WriteLine();
+                            Console.WriteLine("Invalid selection, please try again.");
+                            Console.WriteLine();
+                            Console.Write("Would you like to add more money? [Y/N]: ");
+
+                            userInput = Console.ReadLine().ToLower();
+                        }
+
+                        if (userInput.StartsWith("n"))
+                        {
+                            return balance;
+                        }
+                        else
+                        {
+                            addMoreMoney = true;
+                        }
                     }
                 }
+
+            }
+            catch (Exception)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Something went wrong while reading your response.");
+                Console.WriteLine("Please check your input and restart the program.");
             }
 
             return balance;
