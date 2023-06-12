@@ -163,13 +163,13 @@ namespace Capstone.Classes
                         }
                     }
                 }
-
             }
             catch (Exception)
             {
                 Console.WriteLine();
                 Console.WriteLine("Something went wrong while reading your response.");
-                Console.WriteLine("Please check your input and restart the program.");
+                Console.Write("Press any key to return to the Purchase Menu.");
+                Console.ReadKey(true);
             }
 
             return balance;
