@@ -32,7 +32,7 @@ namespace Capstone
         {
             using (StreamWriter sw = new StreamWriter(filePath, true))
             {
-                sw.WriteLine($"{DateAndTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt")} {product.Name} {slot} {product.Price} {balance}");
+                sw.WriteLine($"{DateAndTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt")} {product.Name} {slot} ${product.Price} ${balance}");
             }
         }
 

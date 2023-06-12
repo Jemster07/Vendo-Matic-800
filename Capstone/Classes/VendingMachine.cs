@@ -91,6 +91,8 @@ namespace Capstone.Classes
 
         public decimal FeedMoney(decimal balance)
         {
+            // TODO: Handle non-listed characters in "Please Insert Money" line
+
             bool endMenu = false;
 
             while (!endMenu)
