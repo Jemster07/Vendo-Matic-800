@@ -10,7 +10,7 @@ namespace Capstone.Classes
     public class VendingMachine
     {
         Logging log = new Logging();
-        Dictionary<string, VendingMachineSlot> InventoryItem = new Dictionary<string, VendingMachineSlot>();
+        Dictionary<string, VendingMachineSlot> instanceVendingMachine = new Dictionary<string, VendingMachineSlot>();
 
         // Property
         public decimal Balance { get; private set; }
@@ -37,29 +37,29 @@ namespace Capstone.Classes
                         decimal productPrice = decimal.Parse(productSourceArray[2]);
                         string productType = productSourceArray[3];
 
-                        if (productSourceArray[3] == "Chip")
+                        if (productType == "Chip")
                         {
                             Chip Chip = new Chip(productName, productPrice, productType);
                             VendingMachineSlot newVendingMachineSlot = new VendingMachineSlot(quantity, Chip);
-                            InventoryItem.Add(productLocation, newVendingMachineSlot);
+                            instanceVendingMachine.Add(productLocation, newVendingMachineSlot);
                         }
-                        else if (productSourceArray[3] == "Candy")
+                        else if (productType == "Candy")
                         {
                             Candy Candy = new Candy(productName, productPrice, productType);
                             VendingMachineSlot newVendingMachineSlot = new VendingMachineSlot(quantity, Candy);
-                            InventoryItem.Add(productLocation, newVendingMachineSlot);
+                            instanceVendingMachine.Add(productLocation, newVendingMachineSlot);
                         }
-                        else if (productSourceArray[3] == "Drink")
+                        else if (productType == "Drink")
                         {
                             Drink Drink = new Drink(productName, productPrice, productType);
                             VendingMachineSlot newVendingMachineSlot = new VendingMachineSlot(quantity, Drink);
-                            InventoryItem.Add(productLocation, newVendingMachineSlot);
+                            instanceVendingMachine.Add(productLocation, newVendingMachineSlot);
                         }
-                        else //(product[3] == "Gum")
+                        else //(productType == "Gum")
                         {
                             Gum Gum = new Gum(productName, productPrice, productType);
                             VendingMachineSlot newVendingMachineSlot = new VendingMachineSlot(quantity, Gum);
-                            InventoryItem.Add(productLocation, newVendingMachineSlot);
+                            instanceVendingMachine.Add(productLocation, newVendingMachineSlot);
                         }
                     }
                 }
@@ -81,7 +81,7 @@ namespace Capstone.Classes
             Console.WriteLine("--- Vending Machine Items ---");
             Console.WriteLine();
 
-            foreach (KeyValuePair<string, VendingMachineSlot> slot in InventoryItem)
+            foreach (KeyValuePair<string, VendingMachineSlot> slot in instanceVendingMachine)
             {
                 Console.WriteLine($"{slot.Key} | {slot.Value.Product.Name} | ${slot.Value.Product.Price} | {slot.Value.Product.Type}");
             }
@@ -174,7 +174,7 @@ namespace Capstone.Classes
             string userInput = Console.ReadLine();
             string userInputUpper = userInput.ToUpper();
 
-            while (!InventoryItem.ContainsKey(userInputUpper))
+            while (!instanceVendingMachine.ContainsKey(userInputUpper))
             {
                 Console.WriteLine();
                 PrintInventory();
@@ -185,7 +185,7 @@ namespace Capstone.Classes
                 userInputUpper = userInput.ToUpper();
             }
 
-            if (InventoryItem[userInputUpper].Product.Price > balance)
+            if (instanceVendingMachine[userInputUpper].Product.Price > balance)
             {
                 Console.Clear();
                 Console.WriteLine();
@@ -198,18 +198,18 @@ namespace Capstone.Classes
             }
             else
             {
-                if (InventoryItem[userInputUpper].Quantity > 0)
+                if (instanceVendingMachine[userInputUpper].Quantity > 0)
                 {
-                    InventoryItem[userInputUpper].DecrementQuantity();
-                    balance -= InventoryItem[userInputUpper].Product.Price;
+                    instanceVendingMachine[userInputUpper].DecrementQuantity();
+                    balance -= instanceVendingMachine[userInputUpper].Product.Price;
 
                     Console.WriteLine();
-                    Console.WriteLine($"{InventoryItem[userInputUpper].Product.Name} | " +
-                        $"${InventoryItem[userInputUpper].Product.Price} | ${balance} | " +
-                        $"{InventoryItem[userInputUpper].Product.Message}");
+                    Console.WriteLine($"{instanceVendingMachine[userInputUpper].Product.Name} | " +
+                        $"${instanceVendingMachine[userInputUpper].Product.Price} | ${balance} | " +
+                        $"{instanceVendingMachine[userInputUpper].Product.Message}");
                     Console.WriteLine();
 
-                    log.SelectProductLog(userInputUpper, InventoryItem[userInputUpper].Product, balance);
+                    log.SelectProductLog(userInputUpper, instanceVendingMachine[userInputUpper].Product, balance);
 
                     Console.Write("Press any key to return to the Purchase Menu.");
                     Console.ReadKey(true);
